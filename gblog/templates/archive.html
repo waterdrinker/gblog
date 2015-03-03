@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block head %}
+{% end %}
+
+{% block body %}
+<div id="leftcol">
+  <div class="shadowbox column">
+      <h3>Archiver</h3>
+      {% for entry in entries %}
+      <time>{{ locale.format_date(entry.published, full_format=True, shorter=True) }}</time>
+        <a href="/entry/{{ entry.slug }}">{{ entry.title }}</a>
+        <br/>
+      {% end %}
+  </div>
+</div>
+{% end %}

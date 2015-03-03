@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block head %}
+<title>{{ handler.settings["blog_title"] }}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=device-dpi" />
+  <link rel="stylesheet" type="text/css" href="/public/css/style.css" />
+{% end %}
+
+{% block body %}
+<div id="leftcol">
+  <div class="shadowbox markdown-body">
+    <!-- home cover img -->
+    {% raw content %}
+    <br/>
+    <br/>
+    <!-- BEGIN comments -->
+    <input id="entry_id" type="hidden" value="{{ entry_id }}"/>
+    <div id="comments">
+        {% module Comments(comments, entry_id, reply_map) %}
+    </div>
+    <!-- END comments -->
+
+  </div>
+</div>
+{% end %}
+
+{% block bottom %}
+  <script src="{{ static_url("jquery.1.8.3.min.js") }}"></script>
+  <script src="{{ static_url("gblog.article.js") }}"></script>
+  <script>
+  //<![CDATA[
+
+  //]]>
+  </script>
+{% end %}

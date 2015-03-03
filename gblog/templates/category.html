@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block body %}
+<div id="leftcol">
+  <div class="shadowbox column">
+    <h3>Category: <a href="/category?name={{ category }}&id={{ item["id"] }}">{{ item["name"] }}</a>&nbsp;({{ item["cnt"] }})</h3>
+    {% module Entry(entries) %}
+  </div>
+</div>
+{% end %}

@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block head %}
+<title>{{ handler.settings["blog_title"] }}</title>
+<!--
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, target-densitydpi=device-dpi" />
+-->
+{% end %}
+
+{% block body %}
+<div id="leftcol">
+  <div class="shadowbox">
+    <!-- home cover img -->
+    <div class="cover">
+        <img src="/static/AdamCoppola.jpg" width="600" height="237" alt="COVER" />
+    </div>
+    <!-- entries -->
+    <div id="entry_list">
+    {% module Entry(entries) %}
+    </div>
+  </div>
+  <!-- pagination -->
+  {% module Pagenav(pages) %}
+</div>
+{% end %}
+
+{% block sidebar %}
+<div id="sidebar">
+  {% if current_user %} {% module Admin(id=None) %} {% end %}
+  {% module Sidebar(tags_list, dates_list) %}
+</div>
+{% end %}
+
+{% block bottom %}
+  <script src="/static/jquery.1.8.3.min.js"></script>
+  <script src="/static/jquery.jqpagination.min.js"></script>
+  <script>
+  //<![CDATA[
+
+    function getCookie(name) {
+      var r = document.cookie.match("\\b" + name + "=([^;]*)\\b");
+      return r ? r[1] : undefined;
+    }
+
+    $(document).ready(function() {
+      // pagination callback function
+      $('.pagination').jqPagination({
+        paged: function(page) {
+          // do something with the page variable
+          _xsrf=getCookie("_xsrf");
+          obj=$.ajax({url:"/", data:$.param({_xsrf: _xsrf, page: page}), dateType: "text", type: "POST", 
+            success: function(responseText) {
+              $("#entry_list").html(responseText);
+              $("html,body").animate({scrollTop: $("#entry_list").offset().top-40}, 200);
+            }
+          });
+        }
+      });
+    });
+
+  //]]>
+  </script>
+{% end %}

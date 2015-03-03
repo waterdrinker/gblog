@@ -1,0 +1,33 @@
+<!-- search -->
+<div id="search" class="shadowbox column">
+    <form action="http://google.com/search" method="get" accept-charset="utf-8" id="search_form">
+      <input type="search" name="q" results="0" placeholder="search" class="form-control"/>
+      <input type="hidden" name="q" value="site:{{ handler.settings["blog_url"] }}"/>
+      <div style="clear:both"></div>
+    </form>
+</div>
+
+<!-- tags -->
+<div class="shadowbox column">
+    <h4>Tags</h4>
+    {% for tag in tags_list %}
+    <a href="/category?name=tag&id={{ tag["id"] }}">{{ tag["name"] }}</a><span class="cnt">({{ tag["cnt"] }})</span>
+    {% end %}
+</div>
+
+<!-- dates -->
+<div class="shadowbox column">
+    <h4>Archiver</h4>
+    {% for date in dates_list %}
+    <a href="/category?name=date&id={{ date["id"] }}">{{ date["name"] }}</a><span class="cnt">({{ date["cnt"] }})</span>
+    {% end %}
+</div>
+
+<!-- func -->
+<div class="shadowbox column">
+    <h4>Function</h4>
+    <div><a href="/archive">{{ _("Archive") }}</a></div>
+    {% if not current_user %}
+    <div>{% raw _('<a href="%(url)s">Sign in</a> to compose/edit') % {"url": "/auth/login?next=" + url_escape(request.uri)} %}</div>
+    {% end %}
+</div>

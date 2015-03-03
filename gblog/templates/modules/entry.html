@@ -1,0 +1,17 @@
+
+{% if entries %}
+  {% for entry in entries %}
+  <div class="entry">
+    <h1><a href="http://{{ handler.settings["blog_url"] }}/entry/{{ entry.slug }}">{{ entry.title }}</a></h1>
+    <div class="entry-date">{{ locale.format_date(entry.published, full_format=True, shorter=True) }}</div>
+    <div class="entry-body markdown-body">{% raw entry.abstract %}</div>
+    <div class="entry-more"><a href="/entry/{{ entry.slug }}"> read more &raquo; </a></div>
+    <div class="entry-footer">
+      <a href="http://{{ handler.settings["blog_url"] }}/entry/{{ entry.slug }}">{{ entry.readtimes }} Readtimes</a>&nbsp;&nbsp;
+      <a href="http://{{ handler.settings["blog_url"] }}/entry/{{ entry.slug }}#comments">{{ entry.comments }} Comments</a>
+    </div>
+  </div>
+  {% end %}
+{% else %}
+   <h2> No article </h2>
+{% end %}

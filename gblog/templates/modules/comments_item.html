@@ -1,0 +1,31 @@
+<div id="comments-{{ comment["id"] }}" class="comments-item">
+  <!-- BEGIN: comment title -->
+  <div class="author">
+    {% if comment["published"] %}
+    <time>{{comment["published"]}}</time>
+    {% else %}
+    Recently
+    {% end %}
+    <a href=" {{ comment["url"] }} ">{{ comment["author"] }}</a>:
+  </div>
+  <!-- END: comment title -->
+
+  {% if replied_comment %}
+  <div class="reply-quote">
+      <span> {% raw replied_comment["content"] %}&nbsp;&nbsp;</span>
+  <a href="{{ replied_comment["url"] }}">{{ replied_comment["author"] }}</a>
+  </div>
+  {% end %}
+
+  <!-- BEGIN: comment content -->
+  <p> {% raw comment["content"] %} </p>
+  <!-- END: comment content -->
+
+  <div class="comments-operation">
+    <a class="reply-comment" href="javascript:void(0);" onclick="reply_comment({{ comment["id"] }})">reply</a>
+    {% if current_user %}
+    <a class="delete-comment" href="javascript:void(0);" onclick="delete_comment({{ comment["id"] }}, {{ comment["entry_id"] }})">delete</a>
+    {% end %}
+  </div>
+
+</div>

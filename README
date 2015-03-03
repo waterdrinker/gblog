@@ -1,0 +1,4 @@
+A Simple Python Blog  
+=======================
+
+A simple blogging engine based on python 3 and uses MySQL to store posts.

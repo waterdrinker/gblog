@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block head %}
+  <link rel="stylesheet" href="{{ static_url("table-and-pygments.css") }}" type="text/css"/>
+{% end %}
+
+{% block body %}
+<div id="leftcol">
+  <div class="shadowbox markdown-body">
+    <!-- BEGIN: artice-nav -->
+    <div id="article-next-pre">
+        <div>
+            {% if pre %}<span> prev: </span><a href="http://{{ handler.settings["blog_url"] }}/entry/{{pre.slug}}">{{pre.title}}</a> {% else %} prev: none {% end %}
+        </div>
+        <div>
+            {% if nex %}<span> next: </span><a href="http://{{ handler.settings["blog_url"] }}/entry/{{nex.slug}}">{{nex.title}}</a> {% else %} next: none {% end %}
+        </div>
+    </div>
+    <!-- END: artice-nav -->
+
+    <h1>{{ entry.title }}</h1>
+    <div class="date">{{ locale.format_date(entry.published, full_format=True, shorter=True) }} published by <a href="http://{{ handler.settings["blog_url"] }}">{{ current_user["name"] }}</a></div>
+
+    <!-- entry tags -->
+    <div class="article-tags">
+      {% for tag in entry.tags.split(',') %}
+        <a class="tag-item" href="/tag?name={{ tag }}">{{ tag }}</a>
+      {% end %}
+    </div>
+
+    <!-- entry body -->
+    <div>{% raw entry.html %}</div>
+
+    <!-- entry readtimes and comments count -->
+    <div class="info">
+      <a href="http://{{ handler.settings["blog_url"] }}/entry/{{ entry.slug }}">{{ entry.readtimes }} Readtimes</a>&nbsp;&nbsp;
+      <a href="http://{{ handler.settings["blog_url"] }}/entry/{{ entry.slug }}#comments"><span id="comments-cnt">{{ entry.comments }}</span> Comments</a>
+    </div>
+
+    <!-- BEGIN comments -->
+    <input id="entry_id" type="hidden" value="{{ entry["id"] }}"/>
+    <div id="comments">
+    </div>
+    <!-- END comments -->
+  </div>
+</div>
+{% end %}
+
+{% block sidebar %}
+<div id="sidebar">
+  <!-- BEGIN: admin -->
+  {% if current_user %} {% module Admin(entry["id"]) %} {% end %}
+  <!-- END: admin -->
+  {% module Sidebar(tags_list, dates_list) %}
+</div>
+{% end %}
+
+{% block bottom %}
+  <script src="{{ static_url("jquery.1.8.3.min.js") }}"></script>
+  <script src="{{ static_url("gblog.article.js") }}"></script>
+  <script>
+  //<![CDATA[
+
+  //]]>
+  </script>
+{% end %}

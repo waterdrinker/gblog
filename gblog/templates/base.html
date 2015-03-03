@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/> 
+    <!--
+    <title>{{ escape(handler.settings["blog_title"]) }}</title>
+    -->
+    <link rel="stylesheet" href="http://127.0.0.1:8001/static/style.css" type="text/css"/>
+    <link rel="alternate" href="/feed" type="application/atom+xml" title="{{ escape(handler.settings["blog_title"]) }}"/>
+    {% block head %}{% end %}
+  </head>
+  <body>
+    <nav>
+      <div class="container">
+        <div class="navbar-header">
+          <a class="navbar-brand" href="/">{{ handler.settings["blog_title"] }}</a>
+        </div>
+        <div id="navbar-items">
+          <ul>
+            <li>
+                <a href="/">Home</a>
+            </li>
+            <li>
+                <a href="/archive">Archive</a>
+            </li>
+            <li>
+                <a href="/">RSS</a>
+            </li>
+            <li>
+                <a href="/about">About</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <div class="container">
+        {% block body %}{% end %}
+        {% block sidebar %}{% end %}
+      </div>
+    </main>
+
+    <footer>
+        <p style="text-align:center"> Copyright@2015 - {{ handler.settings["blog_url"] }} - Powered by 
+        <a href="https://www.python.org/">Python 3</a> and 
+        <a href="http://www.tornadoweb.org/en/stable/">Tornado</a>
+      </p>
+    </footer>
+
+    {% block bottom %}{% end %}
+
+  </body>
+</html>
