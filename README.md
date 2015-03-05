@@ -7,15 +7,15 @@ Requirements
 -------------
 
 1. python 3 
-2. tornado
 3. MySQL(mariaDB)
 
-And the required python packages (using pip or easy_install):
+And the required Python packages (using pip or easy_install to install):
 
-* MySQLdb
-* markdown
+* tornado
+* MySQL-python
+* Markdown
 * Pygments
-* unidecode 
+* Unidecode 
 
 目前封装 mysql 接口的 python 官方包还不支持 python 3 的，可以使用第三方的项目 [MySQL-for-Python-3](https://github.com/davispuh/MySQL-for-Python-3) :
 
@@ -42,7 +42,7 @@ mysql> CREATE DATABASE blog;
 mysql> GRANT ALL PRIVILEGES ON blog.* TO 'blog'@'localhost' IDENTIFIED BY 'blog';
 ```
 
-2. Create the tables in your new database.
+2. Create the tables in your new database (using gblog/data/schema.sql).
 
 ```
 # use the provided /data/schema.sql file by running this command:
@@ -52,25 +52,23 @@ mysql --user=blog --password=blog --database=blog < schema.sql
 Run the blog
 ------------
 
-1. Install 
+Install and run in test 
 
 ```
-python3 setup.py install
+python3.4 setup.py develop
+gblog --port=3000
 ```
 
-2. Start 
+or you can use `nginx` and `supervisor` in production. 
 
-```
-gblog
-```
 
 Configure
 ------------
 
-Create the ~/.gblog
+The configure file `gblog.conf` contains main blog settings.
 
 ```
-cp /usr/lib/gblog ~/.gblog
+mkdir ~/.gblog
+cp /path/to/gblog/data/gblog.conf ~/.gblog/gblog.conf
 ```
 
-File `~/.gblog/gblog.conf` contains the blog configure settings.

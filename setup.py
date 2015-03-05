@@ -43,7 +43,7 @@ ENTRY_POINTS = {
 }
 
 # dependencies
-INSTALL_REQUIRES = ["MySQL-python>=1.2.4", "tornado>=4.0.2"]
+INSTALL_REQUIRES = ["Markdown", "Pygments", "Unidecode", "tornado", "MySQL-python"]
 
 here = path.abspath(path.dirname(__file__))
 

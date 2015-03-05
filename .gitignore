@@ -1,3 +1,7 @@
+# Backup files
+*.~
+*.swp
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -52,3 +56,8 @@ docs/_build/
 
 # PyBuilder
 target/
+
+# jquery
+jquery.1.8.3.min.js
+jquery.jqpagination.js
+
