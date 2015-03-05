@@ -39,7 +39,7 @@ class Application(tornado.web.Application):
             (r"/auth/login", handlers.AuthLoginHandler),
             (r"/auth/logout", handlers.AuthLogoutHandler),
             (r"/category", handlers.CategoryHandler),
-            (r"/(favicon.ico)", tornado.web.StaticFileHandler, {"path": "/static"}),
+            #(r"/(favicon.ico)", tornado.web.StaticFileHandler, {"path": "/static"}),
         ]
         tornado.web.Application.__init__(self, urls , **settings)
 
