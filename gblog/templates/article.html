@@ -19,7 +19,7 @@
     <!-- END: artice-nav -->
 
     <h1>{{ entry.title }}</h1>
-    <div class="date">{{ locale.format_date(entry.published, full_format=True, shorter=True) }} published by <a href="http://{{ handler.settings["blog_url"] }}">{{ current_user["name"] }}</a></div>
+    <div class="date">{{ locale.format_date(entry.published, full_format=True, shorter=True) }} published in <a href="http://{{ handler.settings["blog_url"] }}">{{ handler.settings["blog_url"] }}</a></div>
 
     <!-- entry tags -->
     <div class="article-tags">
