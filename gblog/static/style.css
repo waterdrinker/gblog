@@ -10,7 +10,7 @@ body {
 	font-size: 1em;
 	line-height: 1.618;
 	font-weight: 300;
-	font-family: Georgia, serif;
+	font-family: normal x-small verdana,arial,helvetica,"Hiragino Sans GB","Microsoft YaHei","WenQuanYi Micro Hei", sans-serif;
 	background-color: #eeeeee;
 	color: #555;
 	margin: auto;
@@ -281,45 +281,13 @@ pre {
 .pagination a {
   	float:left;
 	font-family: Times, 'Times New Roman', Georgia, Palatino;
-	position:relative;
   	padding:6px 12px 6px;
   	text-decoration:none;
   	color:#428bca;
   	background-color:#fff;
   	border:1px solid #bbb;
-  	margin-left:-1px
-}
-
-.pagination ul{
-	float: left;
-	margin-top: 0;
-	margin-bottom: 0;
   	margin-left:-1px;
-  	padding:6px 6px 6px;
-	background-color:#fff;
-	border:1px solid #bbb;
 }
-
-.pagination ul li{
-	float: left;
-	display:inline-block;
-}
-
-.pagination input {
-	float: left;
-	width: 30px;
-	vertical-align: middle;
-	text-align: center; 
-	box-shadow: 0 0 2px 1px #00bbbb;
-	border-radius:4px;
-	border:1px solid #D4D4D4;
-	box-shadow:inset 0 2px 5px #eee;
-	color: #099;
-	font-size: 1em;
-	margin: 0px 6px -1px;
-}
-
-
 .pagination a:hover,
 .pagination a:focus,
 .pagination a:active {
@@ -327,31 +295,46 @@ pre {
 	color:#fff;
 	background-color:#428bca;
 	border-color:#428bca;
-	cursor:default;
- }
-
+	cursor:pointer;
+}
+.pagination a:first-child {
+  border-radius: 4px 0 0 4px; 
+}
+.pagination a:last-child {
+  border-radius: 0 4px 4px 0; 
+}
 
 .pagination a.disabled {
 	color:#999;
 	background-color:#fff;
+    cursor:default;
 }
-
-
 .pagination a.disabled:hover,
 .pagination a.disabled:focus,
 .pagination a.disabled:active {
 	border-color: #bbb;
 }
-
-.pagination a:first-child {
-  border-radius: 4px 0 0 4px; 
+.pagination a.plain {
+	font-family: inherit;
+	background-color:#fff;
+    color: #555;
+  	padding:6px 5px 6px;
+	border-color: #bbb;
+    cursor:default;
 }
-
-.pagination a:last-child {
-  border-radius: 0 4px 4px 0; 
+.pagination a span{
+    float: left;
+    padding: 0 4px;
 }
-
-
+.pagination input {
+	width: 30px;
+	text-align: center; 
+	border-radius:4px;
+	border:1px solid #D4D4D4;
+	box-shadow:inset 0 2px 5px #eee;
+	color: #099;
+	font-size: 1em;
+}
 
 .info {
     text-align: right;
