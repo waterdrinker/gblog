@@ -1,7 +1,6 @@
 import os.path
 import tornado.httpserver
 import tornado.ioloop
-import tornado.options
 import tornado.web
 import tornado.escape
 
@@ -12,19 +11,6 @@ from gblog import compose
 from gblog import comment
 from gblog import uimodule
 
-settings = dict(
-    blog_title="example's Blog",
-    blog_url="example.com",
-    config_dir_path=os.path.expanduser('~') + '/.gblog',
-    template_path=os.path.join(os.path.dirname(__file__), "templates"),
-    static_path=os.path.join(os.path.dirname(__file__), "static"),
-    ui_modules=uimodule.modulelist,
-    xsrf_cookies=True,
-    cookie_secret="__TODO:_GENERATE_YOUR_OWN_RANDOM_VALUE_HERE__",
-    login_url="/auth/login",
-    debug=False,  
-    default_handler_class=handlers.DefaultHandler,
-)
 
 class Application(tornado.web.Application):
     def __init__(self):
@@ -41,6 +27,24 @@ class Application(tornado.web.Application):
             (r"/category", handlers.CategoryHandler),
             #(r"/(favicon.ico)", tornado.web.StaticFileHandler, {"path": "/static"}),
         ]
+
+        settings = dict(
+            #blog_title="example's Blog",
+            #blog_url="example.com",
+            config_dir_path=os.path.expanduser('~') + '/.gblog',
+            template_path=os.path.join(os.path.dirname(__file__), "templates"),
+            static_path=os.path.join(os.path.dirname(__file__), "static"),
+            ui_modules=uimodule.modulelist,
+            xsrf_cookies=True,
+            cookie_secret="__TODO:_GENERATE_YOUR_OWN_RANDOM_VALUE_HERE__",
+            login_url="/auth/login",
+            debug=False,
+            default_handler_class=handlers.DefaultHandler,
+        )
+
+        # Parse config file and command line
+        config.set_settings(settings)
+
         tornado.web.Application.__init__(self, urls , **settings)
 
         # Have one global connection to the blog DB across all handlers
@@ -53,18 +57,6 @@ class Application(tornado.web.Application):
 
 
 def main():
-
-    config_file_path = settings["config_dir_path"] + '/gblog.conf'
-    if os.path.isfile(config_file_path): 
-        tornado.options.parse_config_file(config_file_path)
-        settings["blog_title"]=config.options.blog_title
-        settings["blog_url"]=config.options.blog_url
-        settings["cookie_secret"] = config.options.cookie_secret
-    else:
-        print("Cannot find the configure file")
-
-    tornado.options.parse_command_line();
-
     http_server = tornado.httpserver.HTTPServer(Application())
     http_server.listen(config.options.port)
     tornado.ioloop.IOLoop.instance().start()
