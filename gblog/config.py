@@ -12,3 +12,4 @@ define("mysql_database", default="blog", help="blog database name")
 define("mysql_user", default="blog", help="blog database user")
 define("mysql_password", default="blog", help="blog database password")
 
+define("cookie_secret", default="cNOsNilqQli9f8wXR4lT6LXatHmAdUhShYCrCAihHDc=")

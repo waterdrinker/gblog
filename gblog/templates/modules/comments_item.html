@@ -10,12 +10,14 @@
   </div>
   <!-- END: comment title -->
 
+  <!-- BEGIN: reply quote -->
   {% if replied_comment %}
   <div class="reply-quote">
-      <span> {% raw replied_comment["content"] %}&nbsp;&nbsp;</span>
-  <a href="{{ replied_comment["url"] }}">{{ replied_comment["author"] }}</a>
+    <span> {% raw replied_comment["content"] %}&nbsp;&nbsp;</span>
+    <a href="{{ replied_comment["url"] }}">{{ replied_comment["author"] }}</a>
   </div>
   {% end %}
+  <!-- END: reply quote -->
 
   <!-- BEGIN: comment content -->
   <p> {% raw comment["content"] %} </p>

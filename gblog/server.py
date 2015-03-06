@@ -22,7 +22,7 @@ settings = dict(
     xsrf_cookies=True,
     cookie_secret="__TODO:_GENERATE_YOUR_OWN_RANDOM_VALUE_HERE__",
     login_url="/auth/login",
-    debug=False,  # True for develop
+    debug=False,  
     default_handler_class=handlers.DefaultHandler,
 )
 
@@ -59,6 +59,7 @@ def main():
         tornado.options.parse_config_file(config_file_path)
         settings["blog_title"]=config.options.blog_title
         settings["blog_url"]=config.options.blog_url
+        settings["cookie_secret"] = config.options.cookie_secret
     else:
         print("Cannot find the configure file")
 
