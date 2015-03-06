@@ -59,7 +59,10 @@ class CommentHandler(BaseHandler):
         except tornado.web.MissingArgumentError:
             url = ''
 
-        if not url: url = ''
+        if not url:
+            url = 'javascript:void(0);'
+        else:
+            url = utils.get_url(url)
         if not reply_id: reply_id = 0
 
         try:

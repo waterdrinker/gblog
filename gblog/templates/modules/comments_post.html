@@ -16,7 +16,7 @@
     </div>
     <!-- url -->
     <div class="form-group">
-      <input name="url" type="text" class="form-control" id="url" placeholder="Your website" />
+        <input name="url" type="text" class="form-control" id="url" placeholder="Your website" value="{{ handler.settings["blog_url"] if current_user else ""}}" />
       <div id="isurl" class="form-message"></div>
     </div>
     <!-- content -->

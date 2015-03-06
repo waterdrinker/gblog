@@ -85,7 +85,11 @@ def escape_text(text):
     text=MySQLdb.escape_string(text)
     return text
 
-
+def get_url(url):
+    if url.startswith("http://"):
+        return url
+    else:
+        return "http://"+url
 
 
 

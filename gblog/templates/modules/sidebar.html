@@ -19,7 +19,9 @@
 <div class="shadowbox column">
     <h4>Archiver</h4>
     {% for date in dates_list %}
+    <div>
     <a href="/category?name=date&id={{ date["id"] }}">{{ date["name"] }}</a><span class="cnt">({{ date["cnt"] }})</span>
+    </div>
     {% end %}
 </div>
 
