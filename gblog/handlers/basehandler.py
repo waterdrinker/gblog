@@ -9,14 +9,14 @@ class BaseHandler(tornado.web.RequestHandler):
 
     # override to determine the current user from the cookie
     def get_current_user(self):
-        user_id = self.get_secure_cookie("blogdemo_user")
-        if not user_id: return None
-        return self.db.get("SELECT * FROM authors WHERE id = {0}".format(int(user_id)))
+        #user_id = self.get_secure_cookie("blogdemo_user")
+        user = self.get_secure_cookie("user")
+        if not user: 
+            return None
+        #return self.db.get("SELECT * FROM authors WHERE id = {0}".format(int(user_id)))
+        return self.db.get("SELECT * FROM authors WHERE name = '{0}'".format(user.decode()))
 
-    #def write_error(self):
-        #self.render("sjkdflhsa")
-
-
+    # override
     def write_error(self, status_code, **kwargs):
         """Override to implement custom error pages.
 
@@ -30,3 +30,9 @@ class BaseHandler(tornado.web.RequestHandler):
         ``sys.exc_info()`` or ``traceback.format_exc``.
         """
         self.render("error.html", code=status_code, message=self._reason)
+
+    #@tornado.web.authenticated
+    def is_admin(self):
+        if not self.current_user.admin:
+            raise tornado.web.HTTPError(404)
+

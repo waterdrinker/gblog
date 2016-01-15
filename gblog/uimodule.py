@@ -6,19 +6,10 @@ class EntryModule(tornado.web.UIModule):
         return self.render_string("modules/entry.html", entries=entries)
 
 
-class ArticleModule(tornado.web.UIModule):
-    def render(self, entry):
-        return self.render_string("modules/article.html", entry=entry)
-
-
 class SidebarModule(tornado.web.UIModule):
-    def render(self, tags_list, dates_list):
-        return self.render_string("modules/sidebar.html", tags_list=tags_list, dates_list=dates_list)
-
-
-class AdminModule(tornado.web.UIModule):
-    def render(self, id):
-        return self.render_string("modules/admin.html", entry_id=id)
+    def render(self, tags_list, dates_list, entry_id):
+        return self.render_string("modules/sidebar.html", tags_list=tags_list,
+                dates_list=dates_list, entry_id=entry_id)
 
 
 class PagenavModule(tornado.web.UIModule):
@@ -43,7 +34,6 @@ class CommentsPostModule(tornado.web.UIModule):
 
 modulelist = {"Entry":    EntryModule, 
               "Sidebar": SidebarModule,
-              "Admin":    AdminModule,
               "Pagenav":  PagenavModule,
               "Comments": CommentsModule,
               "CommentsItem": CommentsItemModule,

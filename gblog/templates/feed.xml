@@ -1,26 +1,41 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
-  {% set date_format = "%Y-%m-%dT%H:%M:%SZ" %}
-  <title>{{ handler.settings["blog_title"] }}</title>
-  {% if len(entries) > 0 %}
-    <updated>{{ max(e.updated for e in entries).strftime(date_format) }}</updated>
-  {% else %}
-    <updated>{{ datetime.datetime.utcnow().strftime(date_format) }}</updated>
-  {% end %}
-  <id>http://{{ request.host }}/</id>
-  <link rel="alternate" href="http://{{ request.host }}/" title="{{ handler.settings["blog_title"] }}" type="text/html"/>
-  <link rel="self" href="{{ request.full_url() }}" title="{{ handler.settings["blog_title"] }}" type="application/atom+xml"/>
-  <author><name>{{ handler.settings["blog_title"] }}</name></author>
-  {% for entry in entries %}
-    <entry>
-      <id>http://{{ request.host }}/entry/{{ entry.slug }}</id>
-      <title type="text">{{ entry.title }}</title>
-      <link href="http://{{ request.host }}/entry/{{ entry.slug }}" rel="alternate" type="text/html"/>
-      <updated>{{ entry.updated.strftime(date_format) }}</updated>
-      <published>{{ entry.published.strftime(date_format) }}</published>
-      <content type="xhtml" xml:base="http://{{ request.host }}/">
-        <div xmlns="http://www.w3.org/1999/xhtml">{% raw entry.html %}</div>
-      </content>
-    </entry>
-  {% end %}
-</feed>
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+<channel>
+	{% set date_format = "%Y-%m-%dT%H:%M:%SZ" %}
+	<title>{{ handler.settings["blog_title"] }}</title>
+	<link>http://{{ handler.settings["blog_url"] }}</link>
+	<atom:link href="http://{{ handler.settings["blog_url"] }}/feed" rel="self" type="application/rss+xml" />
+	<description>{{ handler.settings["blog_title"] }}</description>
+    <lastBuildDate>{{ update_time }}</lastBuildDate>
+	<language>zh-CN</language>
+	<sy:updatePeriod>dayly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=4.4.3</generator>
+	{% for entry in entries %}
+		<item>
+			<title>让我们来谈谈分工</title>
+			<link>http://{{ request.host }}/entry/{{ entry.slug }}</link>
+			<comments>http://{{ request.host }}/entry/{{ entry.slug }}#comments</comments>
+			<pubDate>{{ entry.published.strftime(date_format) }}</pubDate>
+			<dc:creator><![CDATA[陈皓]]></dc:creator>
+			<category><![CDATA[技术管理]]></category>
+			<category><![CDATA[杂项资源]]></category>
+			<category><![CDATA[Division of Labour]]></category>
+			<category><![CDATA[manager]]></category>
+			<category><![CDATA[Programmer]]></category>
+
+			<guid isPermaLink="false">http://coolshell.cn/?p=17295</guid>
+			<description></description>
+			<content:encoded>
+			</content:encoded>
+			<wfw:commentRss>http://coolshell.cn/articles/17295.html/feed</wfw:commentRss>
+			<slash:comments>92</slash:comments>
+		</item>
+	{% end %}
+</channel>

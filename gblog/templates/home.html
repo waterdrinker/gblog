@@ -12,7 +12,7 @@
   <div class="shadowbox">
     <!-- home cover img -->
     <div class="cover">
-        <img src="/static/AdamCoppola.jpg" width="600" height="237" alt="COVER" />
+        <img src="/static/img/AdamCoppola.jpg" width="600" height="237" alt="COVER" />
     </div>
     <!-- entries -->
     <div id="entry_list">
@@ -26,14 +26,13 @@
 
 {% block sidebar %}
 <div id="sidebar">
-  {% if current_user %} {% module Admin(id=None) %} {% end %}
-  {% module Sidebar(tags_list, dates_list) %}
+  {% module Sidebar(tags_list, dates_list, entry_id=None) %}
 </div>
 {% end %}
 
 {% block bottom %}
   <script src="http://libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
-  <script src="/static/jquery.jqpagination.min.js"></script>
+  <script src="/static/js/jquery.jqpagination.min.js"></script>
   <script>
   //<![CDATA[
 

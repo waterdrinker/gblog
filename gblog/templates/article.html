@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block head %}
-  <link rel="stylesheet" href="/static/table-and-pygments.css" type="text/css"/>
+  <link rel="stylesheet" href="/static/css/table-and-pygments.css" type="text/css"/>
 {% end %}
 
 {% block body %}
@@ -24,7 +24,7 @@
     <!-- entry tags -->
     <div class="article-tags">
       {% for tag in entry.tags.split(',') %}
-        <a class="tag-item" href="/tag?name={{ tag }}">{{ tag }}</a>
+        <a class="tag-item" href="/category?name=tag&id=0&tagname={{ tag }}">{{ tag }}</a>
       {% end %}
     </div>
 
@@ -38,7 +38,7 @@
     </div>
 
     <!-- BEGIN comments -->
-    <input id="entry_id" type="hidden" value="{{ entry["id"] }}"/>
+    <input id="entry_id" type="hidden" value="{{ entry.id }}"/>
     <div id="comments">
     </div>
     <!-- END comments -->
@@ -48,16 +48,13 @@
 
 {% block sidebar %}
 <div id="sidebar">
-  <!-- BEGIN: admin -->
-  {% if current_user %} {% module Admin(entry["id"]) %} {% end %}
-  <!-- END: admin -->
-  {% module Sidebar(tags_list, dates_list) %}
+    {% module Sidebar(tags_list, dates_list, entry_id=entry.id) %}
 </div>
 {% end %}
 
 {% block bottom %}
   <script src="http://libs.baidu.com/jquery/1.8.3/jquery.min.js"></script>
-  <script src="/static/gblog.article.js"></script>
+  <script src="/static/js/gblog.article.js"></script>
   <script>
   //<![CDATA[
 

@@ -1,7 +1,7 @@
 import tornado.web
 
 from gblog import utils
-from gblog.basehandler import BaseHandler
+from gblog.handlers.basehandler import BaseHandler
 
 
 class CommentHandler(BaseHandler):
@@ -105,6 +105,7 @@ class CommentHandler(BaseHandler):
         
         Delete a comment, need authentication.
         """
+        self.is_admin()
 
         comment_id=self.get_argument("id", None)
         entry_id=self.get_argument("entry_id", None)

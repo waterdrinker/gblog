@@ -66,7 +66,7 @@ setup(
     packages=PACKAGES,
     package_data=package_data,
     data_files=data_files,
-    install_package_data=True,
+    #install_package_data=True,
     #zip_safe=False,
     entry_points=ENTRY_POINTS,
     install_requires=INSTALL_REQUIRES,

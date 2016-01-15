@@ -19,8 +19,9 @@ define("mysql_password",   default="blog", help="blog database password")
 
 
 def set_settings(settings):
+
     try:
-        config_file_path = settings["config_dir_path"] + '/gblog.conf'
+        config_file_path = settings["config_file"];
         #if os.path.isfile(config_file_path):
         tornado.options.parse_config_file(config_file_path)
         tornado.options.parse_command_line()
@@ -33,4 +34,5 @@ def set_settings(settings):
     settings["cookie_secret"] = options.cookie_secret
     settings["debug"]         = options.debug
     settings["description"]   = options.description
+    #settings["google_oauth"]   = options.google_oauth
 

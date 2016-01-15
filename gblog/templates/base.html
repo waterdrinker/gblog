@@ -5,11 +5,12 @@
     <!--
     <title>{{ escape(handler.settings["blog_title"]) }}</title>
     -->
-    <link rel="stylesheet" href="/static/style.css" type="text/css"/>
+    <link rel="stylesheet" href="/static/css/style.css" type="text/css"/>
     <link rel="alternate" href="/feed" type="application/atom+xml" title="{{ escape(handler.settings["blog_title"]) }}"/>
     {% block head %}{% end %}
   </head>
   <body>
+    <div id="id_wrapper">
     <nav>
       <div class="container">
         <div class="navbar-header">
@@ -17,18 +18,10 @@
         </div>
         <div id="navbar-items">
           <ul>
-            <li>
-                <a href="/">Home</a>
-            </li>
-            <li>
-                <a href="/archive">Archive</a>
-            </li>
-            <li>
-                <a href="/">RSS</a>
-            </li>
-            <li>
-                <a href="/about">About</a>
-            </li>
+            <li><a href="/">Home</a></li>
+            <li><a href="/archive">Archive</a></li>
+            <li><a href="/feed">RSS</a></li>
+            <li><a href="/about">About</a></li>
           </ul>
         </div>
       </div>
@@ -47,8 +40,7 @@
         <a href="http://www.tornadoweb.org/en/stable/">Tornado</a>
       </p>
     </footer>
-
+    </div>
     {% block bottom %}{% end %}
-
   </body>
 </html>

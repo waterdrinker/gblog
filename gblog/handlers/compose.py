@@ -3,7 +3,8 @@ from datetime import date
 import tornado.web
 
 from gblog import utils
-from gblog.basehandler import BaseHandler
+from gblog.handlers.basehandler import BaseHandler
+
 
 def delete_tags(tagstring, db, entry_id):
     """Clean the datatable tags and tagmaps."""
@@ -28,6 +29,8 @@ class ComposeHandler(BaseHandler):
     @tornado.web.authenticated
     def get(self):
         """Return the article edit page."""
+        self.is_admin()
+
         id = self.get_argument("id", None)
 
         # Check id
@@ -46,7 +49,9 @@ class ComposeHandler(BaseHandler):
     @tornado.web.authenticated
     def post(self):
         """Handle user input and write to database."""
-        id    = self.get_argument("id", None)
+        self.is_admin()
+
+        entry_id    = self.get_argument("id", None)
         title = self.get_argument("title")
         tags  = self.get_argument("tags")
         text  = self.get_argument("markdown")
@@ -55,7 +60,7 @@ class ComposeHandler(BaseHandler):
         tags = utils.escape_text(tags)
         # Check id
         try:
-            if id: int(id)
+            if entry_id: int(entry_id)
         except ValueError:
             raise tornado.web.HTTPError(500)
 
@@ -77,7 +82,7 @@ class ComposeHandler(BaseHandler):
         abstract = utils.escape_text(abstract)
 
         # Case 1. Insert entry first time
-        if not id:
+        if not entry_id:
             # prune the oversize of the slug, title
             slug = utils.get_nice_slug(title)
             if not slug: slug = "entry"
@@ -90,7 +95,7 @@ class ComposeHandler(BaseHandler):
                 if not dup: break
                 slug += "-2"
             # Insert the entry:
-            id = self.db.execute(
+            entry_id = self.db.execute(
                  "INSERT INTO entries (author_id,title,slug,tags, \
                  markdown,html,abstract,published,readtimes,comments) VALUES ({au},'{ti}','{sl}',\
                  '{tg}','{md}','{ht}','{ab}',UTC_TIMESTAMP(),0,0)".format(au=
@@ -106,16 +111,16 @@ class ComposeHandler(BaseHandler):
                 self.db.execute("UPDATE dates SET cnt=cnt+1 WHERE id = {0}".format(date_id))
             else:
                 date_id = self.db.execute("INSERT INTO dates (name, cnt) VALUES ('{0}', 1)".format(datecate))
-            self.db.execute("INSERT INTO datemaps (date_id, entry_id) VALUES ({0}, {1})".format(date_id, id))
+            self.db.execute("INSERT INTO datemaps (date_id, entry_id) VALUES ({0}, {1})".format(date_id, entry_id))
 
         # Case 2. Entry already exist
         else:
             # Get the existed entry's tags
-            existed_entry = self.db.get("SELECT tags,slug FROM entries WHERE id = {0} LIMIT 1".format(id))
+            existed_entry = self.db.get("SELECT tags,slug FROM entries WHERE id = {0} LIMIT 1".format(entry_id))
             if not existed_entry: raise tornado.web.HTTPError(404)
             slug=existed_entry["slug"] 
             # Clean the datatable tags and tagmaps:
-            delete_tags(existed_entry["tags"], self.db, id); 
+            delete_tags(existed_entry["tags"], self.db, entry_id); 
             
             # Update the entry:
             # Dont change the slug
@@ -123,7 +128,7 @@ class ComposeHandler(BaseHandler):
                 "UPDATE entries SET title = '{ti}', \
                  tags = '{tg}', markdown = '{md}', html = '{ht}', abstract='{ab}'\
                  WHERE id = {i}".format(ti=title,  tg=tags,
-                     md=text, ht=html, ab=abstract, i=id))
+                     md=text, ht=html, ab=abstract, i=entry_id))
                 
 
         # Tags insert for all cases
@@ -139,7 +144,7 @@ class ComposeHandler(BaseHandler):
                 self.db.execute("UPDATE tags SET cnt = cnt+1 WHERE id = {0}".format(tag_id))
             else:
                 tag_id = self.db.execute("INSERT INTO tags (name, cnt) VALUES ('{0}', 1)".format(tag))
-            self.db.execute("INSERT INTO tagmaps (tag_id, entry_id) VALUES ({0}, {1})".format(tag_id, id))
+            self.db.execute("INSERT INTO tagmaps (tag_id, entry_id) VALUES ({0}, {1})".format(tag_id, entry_id))
 
         # Redirect:
         self.redirect("/entry/" + slug)
@@ -151,6 +156,8 @@ class ComposeHandler(BaseHandler):
         update tags,
         update dates category.
         """
+        self.is_admin()
+
         entry_id = self.get_argument("entry_id")
 
         if entry_id:

@@ -10,26 +10,57 @@
 <!-- tags -->
 <div class="shadowbox column">
     <h4>Tags</h4>
-    {% for tag in tags_list %}
-    <a href="/category?name=tag&id={{ tag["id"] }}">{{ tag["name"] }}</a><span class="cnt">({{ tag["cnt"] }})</span>
+    {% if tags_list %}
+        {% for tag in tags_list %}
+        <a href="/category?name=tag&id={{ tag["id"] }}">{{ tag["name"] }}</a><span class="cnt">({{ tag["cnt"] }})</span>
+        {% end %}
+    {% else %}
+        <div>none</div>
     {% end %}
+
 </div>
 
 <!-- dates -->
 <div class="shadowbox column">
-    <h4>Archiver</h4>
-    {% for date in dates_list %}
-    <div>
-    <a href="/category?name=date&id={{ date["id"] }}">{{ date["name"] }}</a><span class="cnt">({{ date["cnt"] }})</span>
-    </div>
+    <h4>Dates</h4>
+    {% if dates_list %}
+        {% for date in dates_list %}
+        <div>
+        <a href="/category?name=date&id={{ date["id"] }}">{{ date["name"] }}</a><span class="cnt">({{ date["cnt"] }})</span>
+        </div>
+        {% end %}
+    {% else %}
+        <div>none</div>
     {% end %}
 </div>
 
+  {% if current_user and current_user.admin %} 
+<!-- Admin -->
+<div class="shadowbox column">
+  <h4>Admin</h4>
+  <ul>
+    <li><a href="/supervisor">{{ _("supervisorctl") }}</a></li>
+    <li><a href="/compose">{{ _("New post") }}</a> </li>
+    <li><a href="/auth/logout?next={{ url_escape(request.uri) }}">{{ _("Logout") }}</a></li>
+    {% if entry_id %}
+    <li><a href="/compose?id={{ entry_id }}">{{ _("Edit") }}</a> </li>
+    <li><a class="delete-article" href="javascript:void(0)" onclick="delete_article({{ entry_id }})">Delete</a></li>
+    {% end %}
+    </ul>
+</div>
+
+  {% elif current_user %}
 <!-- func -->
 <div class="shadowbox column">
     <h4>Function</h4>
-    <div><a href="/archive">{{ _("Archive") }}</a></div>
-    {% if not current_user %}
-    <div>{% raw _('<a href="%(url)s">Sign in</a> to compose/edit') % {"url": "/auth/login?next=" + url_escape(request.uri)} %}</div>
-    {% end %}
+    <li><a href="/auth/logout?next={{ url_escape(request.uri) }}">{{ _("Logout") }}</a></li>
 </div>
+  
+  {% else %}
+<!-- func -->
+<div class="shadowbox column">
+    <h4>Function</h4>
+    <div>{% raw _('<a href="%(url)s">Login</a> to compose/edit') % {"url": "/auth/login?next=" + url_escape(request.uri)} %}</div>
+    <div>{% raw _('<a href="%(url)s">Login with Google Account</a>') % {"url": "/auth/login?next=" + url_escape(request.uri)} %}</div>
+</div>
+  {% end %}

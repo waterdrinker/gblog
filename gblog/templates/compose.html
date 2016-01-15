@@ -3,7 +3,11 @@
 {% block body %}
 <div id="leftcol">
   <div class="shadowbox">
-    <h1>Edit an article</h1>
+    {% if entry %}
+      <h2>Edit the article</h1>
+    {% else %}
+      <h2>post an new article</h1>
+    {% end %}
     <form action="{{ request.path }}" method="post" class="compose">
       <input name="title" type="text" class="title form-control" value="{{ entry.title if entry else "" }}" placeholder="Title" />
       <input name="tags" type="text" class="tags form-control" value="{{ entry.tags if entry else "" }}" placeholder="keywords, separated by commas" />

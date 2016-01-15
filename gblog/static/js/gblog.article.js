@@ -52,19 +52,28 @@ $(document).ready(function() {
   $( "#comments" ).load("/comment?id="+entry_id, function() {
   // Email validation
     $( "#email" ).blur(function( ) {
-      if(!email_reg.test($("#email").val())){
-          $("#isemail").html('<p class="warnning">invalid email</p>')
-              return false;
+      if( $("#email").val()!==""){
+        if(!email_reg.test($("#email").val())){
+            $("#isemail").html('<p class="warnning">invalid email</p>')
+                return false;
+        }
+        $("#isemail").html('<p class="pass">OK</p>');
+      } else {
+        $("#isemail").html('*');
       }
-      $("#isemail").html('<p class="pass">OK</p>');
     });
     // URL validation
     $( "#url" ).blur(function( ) {
-      if(!url_reg.test($("#url").val())){
+      if( $("#url").val()!==""){
+        if(!url_reg.test($("#url").val())){
           $("#isurl").html('<p class="warnning">invalid URL</p>')
               return false;
+        }
+        $("#isurl").html('<p class="pass">OK</p>');
+      }else{
+        $("#isurl").html('');
       }
-      $("#isurl").html('<p class="pass">OK</p>');
+
     });
     // // Add a comment 
     // Attach a submit handler to the form
@@ -89,7 +98,15 @@ $(document).ready(function() {
       url = $form.attr( "action" );
       // test email  
       if(!email_reg.test(email)){
+          $(form["email"]).select();
           return false;
+      }
+      // test url if existed
+      if( $("#url").val()!==""){
+        if(!url_reg.test($("#url").val())){
+          $(form["url"]).select();
+          return false;
+        }
       }
       // Send the data using post
       var posting = $.post( url, { 'id':entry_id, 'author':author, 'email':email, 'url':website, 'content':content, '_xsrf':_xsrf, 'reply_id':reply_id } );

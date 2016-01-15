@@ -61,4 +61,9 @@ target/
 jquery.1.8.3.min.js
 jquery.jqpagination.js
 
+# tmp files
+feed.xml
+
+data/
+
 ignore/
