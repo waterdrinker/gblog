@@ -63,7 +63,4 @@ jquery.jqpagination.js
 
 # tmp files
 feed.xml
-
 data/
-
-ignore/
