@@ -9,12 +9,11 @@ class BaseHandler(tornado.web.RequestHandler):
 
     # override to determine the current user from the cookie
     def get_current_user(self):
-        #user_id = self.get_secure_cookie("blogdemo_user")
         user = self.get_secure_cookie("user")
         if not user: 
             return None
         #return self.db.get("SELECT * FROM authors WHERE id = {0}".format(int(user_id)))
-        return self.db.get("SELECT * FROM authors WHERE name = '{0}'".format(user.decode()))
+        return self.db.get("SELECT * FROM authors WHERE email = '{0}'".format(user.decode()))
 
     # override
     def write_error(self, status_code, **kwargs):

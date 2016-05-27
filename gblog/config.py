@@ -17,6 +17,8 @@ define("mysql_database",   default="blog", help="blog database name")
 define("mysql_user",       default="blog", help="blog database user")
 define("mysql_password",   default="blog", help="blog database password")
 
+define("google_oauth_key", default="key", help="Google OAuth2 key")
+define("google_oauth_sec", default="secret", help="Google OAuth2 secret")
 
 def set_settings(settings):
 
@@ -34,5 +36,7 @@ def set_settings(settings):
     settings["cookie_secret"] = options.cookie_secret
     settings["debug"]         = options.debug
     settings["description"]   = options.description
-    #settings["google_oauth"]   = options.google_oauth
+
+    settings["google_oauth"]  = {"key": options.google_oauth_key, 
+                                "secret": options.google_oauth_sec}
 

@@ -169,7 +169,6 @@ class CategoryHandler(BaseHandler):
 
         if name == "tag":
             if id is 0:
-                print("dslf")
                 tagname=self.get_argument("tagname")
                 print(tagname)
                 tag = self.db.get("SELECT * FROM tags WHERE name = '{0}' \

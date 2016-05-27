@@ -29,7 +29,7 @@ class Application(tornado.web.Application):
             (r"/comment", CommentHandler),
             (r"/compose", ComposeHandler),
             (r"/auth/login", AuthLoginHandler),
-            (r"/auth/google_login", GoogleOAuth2LoginHandler),
+            (r"/auth/google", GoogleOAuth2LoginHandler),
             (r"/auth/logout", AuthLogoutHandler),
             (r"/category", CategoryHandler),
             (r"/proxy/supervisor(.*)", ProxySuperHandler),
@@ -58,6 +58,11 @@ class Application(tornado.web.Application):
         else:
             print("config file not found, exit")
             sys.exit(0)
+
+        if not settings["debug"]:
+            for i in urls:
+                if(i[0] == r"/auth/login"):
+                    urls.remove(i)
 
         tornado.web.Application.__init__(self, urls , **settings)
 
