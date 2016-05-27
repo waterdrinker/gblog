@@ -1,3 +1,18 @@
+{% if current_user and current_user.admin %} 
+<!-- Admin -->
+<div class="shadowbox column">
+  <h4>Admin</h4>
+  <ul>
+    <li>Hello, {{ current_user.name }} (<a href="/auth/logout?next={{ url_escape(request.uri) }}">{{ _("logout") }}</a>)</li>
+    <li><a href="/supervisor">{{ _("supervisorctl") }}</a></li>
+    <li><a href="/compose">{{ _("New post") }}</a> </li>
+    {% if entry_id %}
+    <li><a href="/compose?id={{ entry_id }}">{{ _("Edit") }}</a> </li>
+    <li><a class="delete-article" href="javascript:void(0)" onclick="delete_article({{ entry_id }})">Delete</a></li>
+    {% end %}
+    </ul>
+</div>
+{% end %}
 <!-- search -->
 <div id="search" class="shadowbox column">
     <form action="http://google.com/search" method="get" accept-charset="utf-8" id="search_form">
@@ -6,7 +21,6 @@
       <div style="clear:both"></div>
     </form>
 </div>
-
 <!-- tags -->
 <div class="shadowbox column">
     <h4>Tags</h4>
@@ -19,7 +33,6 @@
     {% end %}
 
 </div>
-
 <!-- dates -->
 <div class="shadowbox column">
     <h4>Dates</h4>
@@ -33,34 +46,17 @@
         <div>none</div>
     {% end %}
 </div>
-
-  {% if current_user and current_user.admin %} 
-<!-- Admin -->
-<div class="shadowbox column">
-  <h4>Admin</h4>
-  <ul>
-    <li><a href="/supervisor">{{ _("supervisorctl") }}</a></li>
-    <li><a href="/compose">{{ _("New post") }}</a> </li>
-    <li><a href="/auth/logout?next={{ url_escape(request.uri) }}">{{ _("Logout") }}</a></li>
-    {% if entry_id %}
-    <li><a href="/compose?id={{ entry_id }}">{{ _("Edit") }}</a> </li>
-    <li><a class="delete-article" href="javascript:void(0)" onclick="delete_article({{ entry_id }})">Delete</a></li>
-    {% end %}
-    </ul>
-</div>
-
-  {% elif current_user %}
+{% if current_user and not current_user.admin %}
 <!-- func -->
 <div class="shadowbox column">
     <h4>Function</h4>
-    <li><a href="/auth/logout?next={{ url_escape(request.uri) }}">{{ _("Logout") }}</a></li>
+    <li>Hello, {{ current_user.name }}(<a href="/auth/logout?next={{ url_escape(request.uri) }}">{{ _("logout") }}</a>)</li>
 </div>
-  
-  {% else %}
+{% elif not current_user %}
 <!-- func -->
 <div class="shadowbox column">
     <h4>Function</h4>
     <div>{% raw _('<a href="%(url)s">Login</a> to compose/edit') % {"url": "/auth/login?next=" + url_escape(request.uri)} %}</div>
     <div>{% raw _('<a href="%(url)s">Login with Google Account</a>') % {"url": "/auth/login?next=" + url_escape(request.uri)} %}</div>
 </div>
-  {% end %}
+{% end %}

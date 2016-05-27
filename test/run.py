@@ -3,8 +3,6 @@
 import sys
 import os
 import subprocess
-from gblog import mytorndb
-from gblog import config
 
 def check_setup():
     cmd = './test-setup.sh ' 
