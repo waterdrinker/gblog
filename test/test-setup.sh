@@ -1,9 +1,11 @@
 #!/bin/sh
 
-config_dir=$1
+config_dir=~/.gblog
 
 # 获取当前脚本的上层工作目录
 curdir=$(cd $(dirname $0); cd ..; pwd)
+
+set -x
 
 if [ ! -d $config_dir ]; then
     mkdir $config_dir

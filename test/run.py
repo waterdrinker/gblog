@@ -7,7 +7,7 @@ from gblog import mytorndb
 from gblog import config
 
 def check_setup():
-    cmd = './test-setup.sh ' + '~/.gblog'
+    cmd = './test-setup.sh ' 
     status = subprocess.call(cmd, shell=True)
    
 # discard
