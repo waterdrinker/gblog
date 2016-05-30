@@ -15,9 +15,9 @@ if [ ! -d $config_dir ]; then
     mkdir $config_dir
 fi
 
-if [ ! -e $curdir/data ]; then
+if [ ! -L $curdir/data ]; then
     echo "data link doesn't exist"
-    return
+    exit 1
 fi
 
 if [ ! -e $config_dir/config ]; then
@@ -36,6 +36,10 @@ if [ ! -d /var/www ]; then
     mkdir /var/www
 fi
 
-if [ ! -e /var/www/http ]; then
-    ln -s ${curdir}/gblog /var/www/http
+if [ ! -d /var/www/http ]; then
+    mkdir /var/www/http
+fi
+
+if [ ! -e /var/www/http/static ]; then
+    ln -s ${curdir}/gblog/static /var/www/http/static
 fi

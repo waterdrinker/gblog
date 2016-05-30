@@ -21,7 +21,8 @@ class GoogleOAuth2LoginHandler(BaseHandler,
 
         if self.get_argument('code', False):
             access = yield self.get_authenticated_user(
-                    redirect_uri='http://gongyusong.com/auth/google',
+                    redirect_uri='http://' + self.settings["blog_url"] +
+                    '/auth/google',
                     code=self.get_argument('code'))
             user = yield self.oauth2_request(
                     "https://www.googleapis.com/oauth2/v1/userinfo",
@@ -53,7 +54,8 @@ class GoogleOAuth2LoginHandler(BaseHandler,
 
         else:
             yield self.authorize_redirect(
-                    redirect_uri='http://gongyusong.com/auth/google',
+                    redirect_uri='http://' + self.settings["blog_url"] +
+                    '/auth/google',
                     client_id=self.settings['google_oauth']['key'],
                     scope=['profile', 'email'],
                     response_type='code',

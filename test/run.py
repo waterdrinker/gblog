@@ -7,6 +7,9 @@ import subprocess
 def check_setup():
     cmd = './test-setup.sh ' 
     status = subprocess.call(cmd, shell=True)
+    if status == 1:
+        print("check_setup: error")
+        sys.exit(0)
    
 # discard
 def kill_process():
