@@ -8,7 +8,6 @@ from gblog import config
 from gblog import utils 
 from gblog.handlers.basehandler import BaseHandler
 
-xml_path = "/var/www/http/feed.xml"
 
 
 class FeedHandler(BaseHandler):
@@ -25,12 +24,13 @@ class FeedHandler(BaseHandler):
 
         # get the seconds since epoch
         now = calendar.timegm(time.gmtime())
-        if(now - self.settings["lasttime_rss_update"] > 86400):
+        xml_path = self.settings["rss_xml_path"]
+        if(now - self.settings["rss_update_time"] > 86400):
             logging.info("update RSS feed")
-            self.settings["lasttime_rss_update"] = now
+            self.settings["rss_update_time"] = now
             timestr = time.strftime("%a, %d %b %Y %H:%M:%S +0000", time.gmtime(now))
-            xml = self.render_string("feed.xml", entries=entries,
-                    update_time=timestr)
+            xml = self.render_string("feed.xml", entries=entries, update_time= \
+                    timestr)
 
             try:
                 # write xml bytes to xml_path
@@ -38,20 +38,20 @@ class FeedHandler(BaseHandler):
                     f.write(xml)
             except Exception as e:
                 logging.info("write xml_path failed: %s" % e)
-                f.close()
+
             f.close()
 
             self.write(xml)
             return
         
-        if os.path.exists(self.settings["config_dir"]):
+        # if xml_path file exist
+        if os.path.isfile(xml_path):
             f = open(xml_path, "r")
             self.write(f.read())
             f.close()
         else:
-            timestr = time.strftime("%a, %d %b %Y %H:%M:%S +0000", 
-                    time.gmtime(self.settings["lasttime_rss_update"]))
-            self.render("feed.xml", entries=entries,
-                    update_time=self.settings["lasttime_rss_update"])
+            timestr = time.strftime("%a, %d %b %Y %H:%M:%S +0000", time.gmtime(
+                      self.settings["rss_update_time"]))
+            self.render("feed.xml", entries=entries, update_time=timestr)
 
 

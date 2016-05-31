@@ -19,23 +19,14 @@
 	<generator>https://wordpress.org/?v=4.4.3</generator>
 	{% for entry in entries %}
 		<item>
-			<title>让我们来谈谈分工</title>
+			<title>{{ entry.title }}</title>
 			<link>http://{{ request.host }}/entry/{{ entry.slug }}</link>
 			<comments>http://{{ request.host }}/entry/{{ entry.slug }}#comments</comments>
 			<pubDate>{{ entry.published.strftime(date_format) }}</pubDate>
-			<dc:creator><![CDATA[陈皓]]></dc:creator>
-			<category><![CDATA[技术管理]]></category>
-			<category><![CDATA[杂项资源]]></category>
-			<category><![CDATA[Division of Labour]]></category>
-			<category><![CDATA[manager]]></category>
-			<category><![CDATA[Programmer]]></category>
-
-			<guid isPermaLink="false">http://coolshell.cn/?p=17295</guid>
 			<description></description>
-			<content:encoded>
-			</content:encoded>
-			<wfw:commentRss>http://coolshell.cn/articles/17295.html/feed</wfw:commentRss>
-			<slash:comments>92</slash:comments>
+            <content:encoded>
+            {% raw entry.html %}
+            </content:encoded>
 		</item>
 	{% end %}
 </channel>

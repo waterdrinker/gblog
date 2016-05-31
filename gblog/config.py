@@ -20,16 +20,12 @@ define("mysql_password",   default="blog", help="blog database password")
 define("google_oauth_key", default="key", help="Google OAuth2 key")
 define("google_oauth_sec", default="secret", help="Google OAuth2 secret")
 
-def set_settings(settings):
 
-    try:
-        config_file_path = settings["config_file"];
-        #if os.path.isfile(config_file_path):
-        tornado.options.parse_config_file(config_file_path)
-        tornado.options.parse_command_line()
-    except:
-        print("Parse configure FAILED")
-        raise
+def get_options(settings):
+
+    config_file_path = settings["config_file"];
+    tornado.options.parse_config_file(config_file_path)
+    tornado.options.parse_command_line()
 
     settings["blog_title"]    = options.blog_title
     settings["blog_url"]      = options.blog_url

@@ -20,10 +20,12 @@ class GoogleOAuth2LoginHandler(BaseHandler,
             self.redirect("/")
 
         if self.get_argument('code', False):
+            # get access_token
             access = yield self.get_authenticated_user(
                     redirect_uri='http://' + self.settings["blog_url"] +
                     '/auth/google',
                     code=self.get_argument('code'))
+            # get user info
             user = yield self.oauth2_request(
                     "https://www.googleapis.com/oauth2/v1/userinfo",
                     access_token=access["access_token"])
