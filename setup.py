@@ -18,23 +18,23 @@ classifiers=[
 ]
 
 # package contents
-PACKAGES = find_packages(exclude=['test', 'data'])
+#PACKAGES = find_packages(exclude=['test', 'data'])
 #['gblog']
 #find_packages(exclude=['test'])
 
 # If there are data files included in your packages that need to be
 # installed, specify them here.  If using Python 2.6 or less, then these
 # have to be included in MANIFEST.in as well.
-package_data={
-    '': ['*.html', '*.xml', '*.css', '*png'],
-    #'sample': ['package_data.dat'],
-}
+#package_data={
+#    '': ['*.html', '*.xml', '*.css', '*png'],
+#    #'sample': ['package_data.dat'],
+#}
 
 # place data files outside of your packages.
 # see http://docs.python.org/3.4/distutils/setupscript.html#installing-additional-files
 # Each (directory, files) pair in the sequence specifies the installation directory and the files to install there.
-data_files=[('share/gblog/gblog_sql', ['data/schema.sql']),
-            ('share/gblog', ['data/gblog.conf'])]
+#data_files=[('share/gblog/gblog_sql', ['data/schema.sql']),
+#            ('share/gblog', ['data/gblog.conf'])]
 
 ENTRY_POINTS = {
     'console_scripts': [
@@ -63,9 +63,9 @@ setup(
     classifiers=classifiers,
     url=URL,
     keywords=KEYWORDS,
-    packages=PACKAGES,
-    package_data=package_data,
-    data_files=data_files,
+    #packages=PACKAGES,
+    #package_data=package_data,
+    #data_files=data_files,
     #install_package_data=True,
     #zip_safe=False,
     entry_points=ENTRY_POINTS,
