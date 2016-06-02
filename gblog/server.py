@@ -35,7 +35,7 @@ class Application(tornado.web.Application):
             blog_title="example's Blog",
             blog_url="example.com",
             config_dir=os.path.expanduser('~') + '/.gblog',
-            config_file=os.path.expanduser('~') + '/.gblog/config',
+            config_file=os.path.expanduser('~') + '/.gblog/gblog.conf',
             template_path=os.path.join(os.path.dirname(__file__), "templates"),
             static_path=os.path.join(os.path.dirname(__file__), "static"),
             ui_modules=uimodule.modulelist,

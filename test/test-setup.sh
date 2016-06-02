@@ -5,14 +5,12 @@ config_dir=~/.gblog
 # 获取当前脚本的上层工作目录
 proj_dir=$(cd $(dirname $0); cd ..; pwd)
 
-#config_dir/data/gblog.conf ->  proj_dir/config
-#config_dir/nginx.conf  ->  proj_dir/nginx.conf
-#config_dir/supervisor.conf  ->  proj_dir/supervisor.conf
+#config_dir/data ->  proj_dir
 
 set -x
 
-if [ ! -d $config_dir ]; then
-    mkdir $config_dir
+if [ ! -L $config_dir ] && [ -e $config_dir ]; then
+    rm $config_dir -rf
 fi
 
 if [ ! -L $proj_dir/data ]; then
@@ -20,16 +18,8 @@ if [ ! -L $proj_dir/data ]; then
     exit 1
 fi
 
-if [ ! -e $config_dir/config ]; then
-    ln -s ${proj_dir}/data/gblog.conf $config_dir/config
-fi
-
-if [ ! -e $config_dir/supervisord.conf ]; then
-    ln -s ${proj_dir}/supervisord.conf $config_dir
-fi
-
-if [ ! -e $config_dir/nginx.conf ]; then
-    ln -s ${proj_dir}/nginx.conf $config_dir
+if [ ! -L $config_dir ]; then
+    ln -s ${proj_dir}/data $config_dir
 fi
 
 if [ ! -d /var/www ]; then
