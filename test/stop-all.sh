@@ -13,8 +13,10 @@ if [ ! -e /run/supervisord.pid ]; then
     echo "/var/run/supervisord.pid didn't exist"
 else
     echo "sudo supervisorctl stop all"
-    echo "sudo pkill -9 supervisord"
-    sudo pkill -9 supervisord
+    sudo supervisorctl stop gblogs:*
+    echo "sudo supervisorctl shutdown"
+    sudo supervisorctl shutdown
 fi
 
-ps -ef |grep gblog|grep -v grep|grep -v vim|awk '{print $2}'|xargs sudo kill -9
+ps -ef |grep gblog|grep -v grep|grep -v vim
+#ps -ef |grep gblog|grep -v grep|grep -v vim|awk '{print $2}'|xargs sudo kill -9
