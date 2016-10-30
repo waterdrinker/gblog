@@ -4,6 +4,7 @@ import sys
 import os
 import subprocess
 
+debug=0
 
 def check_setup():
     cmd = './setup.sh'
@@ -56,15 +57,23 @@ def main():
 
     # restart supervisord and nginx
     if process_exist("supervisord"):
-        print("process supervisord exist, restart gblogs:*")
-        cmd = 'supervisorctl restart gblogs:*'
+        if debug:
+            print("process supervisord exist, restart gblog-debug")
+            cmd = 'supervisorctl restart gblog-debug'
+        else:
+            print("process supervisord exist, restart gblogs:*")
+            cmd = 'supervisorctl restart gblogs:*'
         subprocess.call(cmd, shell=True)
     else:
         print('supervisord -c ~/.gblog/supervisord.conf')
         cmd = 'supervisord -c ~/.gblog/supervisord.conf'
         subprocess.call(cmd, shell=True)
-        print("supervisorctl start gblogs:*")
-        cmd = 'supervisorctl start gblogs:*'
+        if debug:
+            print("supervisorctl start gblog-debug")
+            cmd = 'supervisorctl start gblog-debug'
+        else:
+            print("supervisorctl start gblogs:*")
+            cmd = 'supervisorctl start gblogs:*'
         subprocess.call(cmd, shell=True)
 
     if process_exist("nginx"):
@@ -78,4 +87,7 @@ def main():
 
 
 if __name__ == "__main__":
+    if len(sys.argv) > 1 and sys.argv[1] == "debug":
+        debug=1
+        print("debug mode")
     main()

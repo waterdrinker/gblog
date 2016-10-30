@@ -4,7 +4,7 @@
   <h4>Admin</h4>
   <ul>
     <li>Hello, {{ current_user.name }} (<a href="/auth/logout?next={{ url_escape(request.uri) }}">{{ _("logout") }}</a>)</li>
-    <li><a href="/supervisor">{{ _("supervisorctl") }}</a></li>
+    <li><a href="/super">{{ _("supervisorctl") }}</a></li>
     <li><a href="/compose">{{ _("New post") }}</a> </li>
     {% if entry_id %}
     <li><a href="/compose?id={{ entry_id }}">{{ _("Edit") }}</a> </li>

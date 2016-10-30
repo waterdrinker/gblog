@@ -44,7 +44,7 @@ class ProxySuperHandler(BaseHandler):
 
 
 class SuperHandler(BaseHandler):
-    """Handle URL '/supervisor'.
+    """Handle URL '/super'.
     proxy for supervisord
 
     """
@@ -52,6 +52,6 @@ class SuperHandler(BaseHandler):
     @tornado.web.authenticated
     def get(self):
         self.is_admin()
-        self.render("supervisor.html")
+        self.render("super.html")
 
 

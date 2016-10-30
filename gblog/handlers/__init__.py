@@ -5,4 +5,4 @@ from .compose import ComposeHandler
 from .comment import CommentHandler
 from .auth import AuthLoginHandler, GoogleOAuth2LoginHandler, AuthLogoutHandler
 from .feed import FeedHandler
-from .supervisor import SuperHandler, ProxySuperHandler
+from .super import SuperHandler, ProxySuperHandler

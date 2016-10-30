@@ -27,8 +27,8 @@ class Application(tornado.web.Application):
             (r"/auth/google", handlers.GoogleOAuth2LoginHandler),
             (r"/auth/logout", handlers.AuthLogoutHandler),
             (r"/category", handlers.CategoryHandler),
+            (r"/super", handlers.SuperHandler),
             (r"/proxy/supervisor(.*)", handlers.ProxySuperHandler),
-            (r"/supervisor", handlers.SuperHandler),
         ]
 
         settings = dict(

@@ -1,5 +1,13 @@
 {% extends "base.html" %}
 
+{% block head %}
+  {% if entry %}
+    <title>Edit the article</title>
+  {% else %}
+    <title>post an new article</title>
+  {% end %}
+{% end %}
+
 {% block body %}
 <div id="leftcol">
   <div class="shadowbox">
